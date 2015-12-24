@@ -1,0 +1,128 @@
+# Personal Git Info
+GIT_AUTHOR_NAME="Nils Hartmann"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+GIT_AUTHOR_EMAIL="nils@nilshartmann.net"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+# Open favourite ui tools from cmd line
+pf () {
+  if [ "$#" = "0" ]
+  then
+    open -a 'Path Finder' `pwd`
+  else
+    open -a 'Path Finder' $1
+  fi
+}
+
+st () {
+  if [ "$#" = "0" ]
+  then
+	open -a 'SourceTree' `pwd`
+  else
+    open -a 'SourceTree' $1
+  fi
+}
+
+sg () {
+  if [ "$#" = "0" ]
+  then
+    open -a 'SmartGit' `pwd`
+  else
+    open -a 'SmartGit' $1
+  fi
+}
+
+tw() {
+  open -a TextWrangler $1
+}
+
+# Create a private BitBucket repo with one command
+# --------------------------------------------------------------------------------
+#
+# Uses the BitBucket REST API to create a new private, non-forkable repository
+# for the local Git repository your currently staying in.
+# The content of your local repository gets pushed after the repository is created.
+#
+# Prequisites:
+# - you must have curl installed
+# - your local repo must not have a remote already connect to a bitbucket repo
+# - your local repo must not have an origin 'remote'
+#
+# Usage
+# 1. Add this method to your .bash_profile or .bash_rc
+# 2. Switch to a directory that contains a git directory (i.e. have a '.git'-folder inside)
+# 3. run 'add_bb' (you will be asked for your BitBucket username and password)
+# 4. The name of the remote repository will be determined from your current path name
+#    (Path '/home/nils/repos/My First Git Repo'  would become my_first_git_repo in BitBucket)
+#    If that's not good for you, you can specify a repository name as first parameter to the
+#    method call  (add_bb another_repo_name)
+add_bb() {
+  REPO_NAME=$1
+
+  if [ -z "$REPO_NAME" ]; then
+    # Remove spaces from repository name and convert to lowercase
+    REPO_NAME=$(basename `pwd | sed 's/ /_/g'|tr A-Z a-z`)
+  fi;
+
+  if [ ! -d .git/ ]; then
+	  echo "No Git repository inside this directory. Please init with 'git init' first";
+	  return;
+  fi
+
+  # Check, if bitbucket is already registered as remote
+  git remote -v|grep bitbucket.org
+  if [ "$?" == "0" ]; then
+    echo "Repository already has a BitBucket remote"
+    return;
+  fi;
+
+  # Check if there is already a remote called 'origin'
+  git remote|grep origin
+  if [ "$?" == "0" ]; then
+    echo "Repository alread has an 'origin' remote"
+    return;
+  fi
+
+  if [ -z "$BB_USER" ]; then
+   local BB_USER
+   echo "Enter BitBucket User name (avoid this by setting BB_USER env variable"
+   read BB_USER
+  fi;
+
+  if [ -z "$BB_PASSWORD" ]; then
+    local BB_PASSWORD
+    echo "Enter BitBucket password (WARNING: will be displayed in clear text)"
+    echo "Avoid this by setting the BB_PASSWORD env variable"
+    read BB_PASSWORD
+  fi
+
+  echo Creating Repository $REPO_NAME
+  read -p "To confirm press any key, otherwise quit with 'n' or ctrl+c" -n 1 confirmation
+  echo
+  if [ "$confirmation" == "n" ]; then
+    echo "cancelled."
+    return;
+  fi;
+
+  # REST Call
+  curl -f -X POST -v -u $BB_USER:$BB_PASSWORD -H "Content-Type: application/json" \
+  https://api.bitbucket.org/2.0/repositories/$BB_USER/$REPO_NAME \
+  -d '{"scm": "git", "is_private": "true", "fork_policy": "no_public_forks" }'
+
+  if [ "$?" == "22" ]; then
+    echo "REST Call to BitBucket failed. Repository has not been created."
+    return;
+  fi
+
+  echo Add remote 'origin' and push to $REPO_NAME
+  git remote add origin https://$BB_USER@bitbucket.org/$BB_USER/$REPO_NAME.git
+  git push -u origin --all
+
+  echo "Done. You can find your new repository here: https://bitbucket.org/$BB_USER/$REPO_NAME"
+}
+
+
+
+
