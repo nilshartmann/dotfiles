@@ -7,13 +7,9 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
-alias g="git"
-alias h="history"
-alias j="jobs"
+alias js="cd ~/develop/javascript"
 alias ns="ssh nils@nilshartmann.net"
 
 # Detect which `ls` flavor is in use
