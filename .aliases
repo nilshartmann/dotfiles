@@ -154,6 +154,6 @@ alias http_server="python -m SimpleHTTPServer 4444"
 
 # Start Visual Studio Code
 # Enable Salsa preview for VSC (https://code.visualstudio.com/Updates)
-export VSCODE_TSJS=1
+# export VSCODE_TSJS=1
 
 function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
