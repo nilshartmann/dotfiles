@@ -18,5 +18,10 @@ brew install tree
 brew install wget
 brew install httrack
 
+# http://sourabhbajaj.com/mac-setup/Vagrant/README.html
+brew cask install virtualbox
+brew cask install vagrant
+
+
 # Remove outdated versions from the cellar.
 brew cleanup
