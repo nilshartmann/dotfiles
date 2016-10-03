@@ -17,6 +17,7 @@ brew upgrade --all
 brew install tree
 brew install wget
 brew install httrack
+brew install maven
 
 # http://sourabhbajaj.com/mac-setup/Vagrant/README.html
 brew cask install virtualbox
