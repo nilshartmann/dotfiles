@@ -18,6 +18,7 @@ brew install tree
 brew install wget
 brew install httrack
 brew install maven
+brew install gradle
 
 # http://sourabhbajaj.com/mac-setup/Vagrant/README.html
 brew cask install virtualbox
