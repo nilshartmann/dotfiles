@@ -219,6 +219,11 @@ function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
 #    (Path '/home/nils/repos/My First Git Repo'  would become my_first_git_repo in BitBucket)
 #    If that's not good for you, you can specify a repository name as first parameter to the
 #    method call  (add_bb another_repo_name)
+#
+# You must have enabled two factor authentification in BitBucket and created an App password
+# (https://confluence.atlassian.com/bitbucket/app-passwords-828781300.html). The App password
+# is read from the env variable BB_PASSWORD. If this variable is NOT set you will be
+# prompted to enter your app password when this script is run
 add_bb() {
   REPO_NAME=$1
 
@@ -248,13 +253,13 @@ add_bb() {
 
   if [ -z "$BB_USER" ]; then
    local BB_USER
-   echo "Enter BitBucket User name (avoid this by setting BB_USER env variable"
+   echo "Enter BitBucket User name (avoid this by setting BB_USER env variable)"
    read BB_USER
   fi;
 
   if [ -z "$BB_PASSWORD" ]; then
     local BB_PASSWORD
-    echo "Enter BitBucket password (WARNING: will be displayed in clear text)"
+    echo "Enter BitBucket (app) password (WARNING: will be displayed in clear text)"
     echo "Avoid this by setting the BB_PASSWORD env variable"
     read BB_PASSWORD
   fi
@@ -278,7 +283,8 @@ add_bb() {
   fi
 
   echo Add remote 'origin' and push to $REPO_NAME
-  git remote add origin https://$BB_USER@bitbucket.org/$BB_USER/$REPO_NAME.git
+	# Must use SSH with 2FA (https://confluence.atlassian.com/bitbucket/use-the-ssh-protocol-with-bitbucket-cloud-221449711.html)
+  git remote add origin ssh://git@bitbucket.org/$BB_USER/$REPO_NAME.git
   git push -u origin --all
 
   echo "Done. You can find your new repository here: https://bitbucket.org/$BB_USER/$REPO_NAME"
