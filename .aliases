@@ -198,6 +198,10 @@ tw() {
 # export VSCODE_TSJS=1
 function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
 
+cr() {
+  open -a /Applications/Google\ Chrome.app/ --args --proxy-server=127.0.0.1:3128
+}
+
 
 # Create a private BitBucket repo with one command
 # --------------------------------------------------------------------------------
