@@ -13,6 +13,7 @@ brew install wget
 brew install httrack
 brew install maven
 brew install gradle
+brew install yarn
 
 # Remove outdated versions from the cellar.
 brew cleanup
