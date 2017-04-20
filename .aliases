@@ -194,9 +194,10 @@ tw() {
 }
 
 # Start Visual Studio Code
-# Enable Salsa preview for VSC (https://code.visualstudio.com/Updates)
-# export VSCODE_TSJS=1
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
+#function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
+
+# Insiders Build with Proxy Settings as in Chrome (https://github.com/Microsoft/vscode/issues/22214)
+function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args --proxy-server=127.0.0.1:3128 $*; }
 
 cr() {
   open -a /Applications/Google\ Chrome.app/ --args --proxy-server=127.0.0.1:3128
