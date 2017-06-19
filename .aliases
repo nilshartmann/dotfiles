@@ -197,7 +197,7 @@ tw() {
 #function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
 
 # Insiders Build with Proxy Settings as in Chrome (https://github.com/Microsoft/vscode/issues/22214)
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args --proxy-server=127.0.0.1:3128 $*; }
+function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args --proxy-server=127.0.0.1:3128 $*; }
 
 cr() {
   open -a /Applications/Google\ Chrome.app/ --args --proxy-server=127.0.0.1:3128
@@ -294,3 +294,5 @@ add_bb() {
 
   echo "Done. You can find your new repository here: https://bitbucket.org/$BB_USER/$REPO_NAME"
 }
+
+alias on="code ~/notes"
