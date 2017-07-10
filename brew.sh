@@ -15,6 +15,7 @@ brew install maven
 brew install gradle
 brew install yarn
 brew install httpie
+brew install git bash-completion
 
 # Remove outdated versions from the cellar.
 brew cleanup
