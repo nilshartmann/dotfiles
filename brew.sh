@@ -16,5 +16,8 @@ brew install gradle
 brew install yarn
 brew install httpie
 
+# https://github.com/facebook/jest/issues/1767#issuecomment-317287847
+brew install watchman
+
 # Remove outdated versions from the cellar.
 brew cleanup
