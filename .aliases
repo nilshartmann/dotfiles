@@ -203,6 +203,12 @@ cr() {
   open -a /Applications/Google\ Chrome.app/ --args --proxy-server=127.0.0.1:3128
 }
 
+# Alias for p4merge to invoke with 'p4diff' to compare two files
+p4diff() {
+	/Applications/p4merge.app/Contents/Resources/launchp4merge $1 $2
+}
+
+
 
 # Create a private BitBucket repo with one command
 # --------------------------------------------------------------------------------
