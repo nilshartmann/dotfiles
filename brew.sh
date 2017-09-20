@@ -8,6 +8,7 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
+brew install coreutils
 brew install tree
 brew install wget
 brew install httrack
