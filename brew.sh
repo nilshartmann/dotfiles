@@ -13,7 +13,7 @@ brew install wget
 brew install httrack
 brew install maven
 brew install gradle
-brew install yarn
+brew install yarn --without-node
 brew install httpie
 brew install git bash-completion
 
