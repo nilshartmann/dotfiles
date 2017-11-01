@@ -16,6 +16,7 @@ brew install maven
 brew install gradle
 brew install yarn
 brew install httpie
+brew install git bash-completion
 
 # https://github.com/facebook/jest/issues/1767#issuecomment-317287847
 brew install watchman
