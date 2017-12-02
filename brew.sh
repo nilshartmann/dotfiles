@@ -16,6 +16,7 @@ brew install gradle
 brew install yarn --without-node
 brew install httpie
 brew install git bash-completion
+brew install mongodb
 
 # Remove outdated versions from the cellar.
 brew cleanup
