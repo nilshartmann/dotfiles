@@ -178,6 +178,9 @@ st () {
   fi
 }
 
+# GitTower https://www.git-tower.com/help/mac/integration/cli-tool
+alias gtower='gittower $(git rev-parse --show-toplevel)'
+
 # SmartGit
 sg () {
   if [ "$#" = "0" ]
