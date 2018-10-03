@@ -8,6 +8,9 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
+brew tap caskroom/versions
+
+brew cask install java8
 brew install tree
 brew install wget
 brew install httrack
