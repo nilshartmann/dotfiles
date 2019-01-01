@@ -50,3 +50,7 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/nils/.sdkman"
+[[ -s "/Users/nils/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nils/.sdkman/bin/sdkman-init.sh"
+
