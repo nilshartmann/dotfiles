@@ -195,4 +195,4 @@ function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
 
-Ì
+shorten() { node /Users/nils/develop/javascript/nilsh-urls/node_modules/.bin/netlify-shortener "$1" "$2"; }
