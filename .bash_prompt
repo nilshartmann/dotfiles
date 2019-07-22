@@ -122,4 +122,4 @@ PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
 
 export PS1_ORIGINAL=${PS1}
-export SCREENSHOT_PROMPT="\[${bold}\]\[${yellow}\]\w\\[${cyan}\] \$ \[${reset}\]"
+export SCREENSHOT_PROMPT="\n\[${bold}\]\[${yellow}\]\w\\[${cyan}\] \$ \[${reset}\]"
