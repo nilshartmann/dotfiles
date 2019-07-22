@@ -196,3 +196,60 @@ function tre() {
 }
 
 shorten() { node /Users/nils/develop/javascript/nilsh-urls/node_modules/.bin/netlify-shortener "$1" "$2"; }
+shorten-pdf() {
+  FILE=$(basename $1)
+  if [ "$FILE" != "$1" ]; then
+    echo "Must only specify file (no folder allowed)"
+    exit 1;
+  fi
+
+  GIT_DIR=$(git rev-parse --show-prefix)$1
+  GIT_REMOTE=$(git remote get-url origin)
+  basename=$(basename $GIT_REMOTE)
+  filename=${basename%.*}
+  GIT_FOLDER=$filename/raw/master/${GIT_DIR}
+
+  GIT_HOST=$(echo $(dirname $(git remote get-url origin))|tr : /)
+  GIT_HOST_WITH_PROTOCOL=$(echo ${GIT_HOST/git@/https://})
+
+  GIT_URL=${GIT_HOST_WITH_PROTOCOL}/${GIT_FOLDER}
+
+  echo PDF DOWNLOAD URL: $GIT_URL
+  shorten $GIT_URL $2
+}
+
+shorten-dir() {
+  FILE=$(basename $1)
+  if [ ! -d "$FILE" ]; then
+    echo "FILE NOT A FOLDER: $FILE"
+    exit 1;
+  fi
+
+  if [ "." == "$FILE" ]; then 
+    FILE=""
+  fi;
+
+  GIT_DIR=$(git rev-parse --show-prefix)$FILE
+  GIT_REMOTE=$(git remote get-url origin)
+  basename=$(basename $GIT_REMOTE)
+  filename=${basename%.*}
+  GIT_FOLDER=$filename/tree/master/${GIT_DIR}
+
+  GIT_HOST=$(echo $(dirname $(git remote get-url origin))|tr : /)
+  GIT_HOST_WITH_PROTOCOL=$(echo ${GIT_HOST/git@/https://})
+
+  GIT_URL=${GIT_HOST_WITH_PROTOCOL}/${GIT_FOLDER}
+
+  echo url: $GIT_URL
+
+  shorten $GIT_URL $2
+
+}
+
+set_screenshot_prompt() {
+  export PS1=${SCREENSHOT_PROMPT}
+}
+
+set_orignal_prompt() {
+  export PS1=${PS1_ORIGINAL}
+}

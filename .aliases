@@ -178,9 +178,6 @@ st () {
   fi
 }
 
-# GitTower https://www.git-tower.com/help/mac/integration/cli-tool
-alias gtower='gittower $(git rev-parse --show-toplevel)'
-
 # SmartGit
 sg () {
   if [ "$#" = "0" ]
@@ -199,7 +196,7 @@ tw() {
 # Start Visual Studio Code
 # Enable Salsa preview for VSC (https://code.visualstudio.com/Updates)
 # export VSCODE_TSJS=1
-function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
+# function code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*; }
 
 
 # Create a private BitBucket repo with one command
