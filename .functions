@@ -197,10 +197,16 @@ function tre() {
 
 shorten() { node /Users/nils/develop/javascript/nilsh-urls/node_modules/.bin/netlify-shortener "$1" "$2"; }
 shorten-pdf() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "usage: shorten-pdf PDFFILE URLPATH"
+    return;
+  fi
+
+
   FILE=$(basename $1)
   if [ "$FILE" != "$1" ]; then
     echo "Must only specify file (no folder allowed)"
-    exit 1;
+    return;
   fi
 
   GIT_DIR=$(git rev-parse --show-prefix)$1
@@ -219,10 +225,14 @@ shorten-pdf() {
 }
 
 shorten-dir() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "usage: shorten-dir FOLDER URLPATH"
+    return;
+  fi
   FILE=$(basename $1)
   if [ ! -d "$FILE" ]; then
     echo "FILE NOT A FOLDER: $FILE"
-    exit 1;
+    return;
   fi
 
   if [ "." == "$FILE" ]; then 
